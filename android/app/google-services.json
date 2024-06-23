@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518302956291",
+    "project_id": "augmented-reality-8328e",
+    "storage_bucket": "augmented-reality-8328e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518302956291:android:abf4ea7d1b9b1af3144736",
+        "android_client_info": {
+          "package_name": "com.augmententedreality.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrO9NQOA3WjNXvN5BCvK3ml0tAZpan6Ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
