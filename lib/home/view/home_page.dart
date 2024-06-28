@@ -1,7 +1,13 @@
+import 'dart:math';
+
+import 'package:augmented_reality/home/controller/home_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+  final HomePageController controller = Get.put(HomePageController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,62 @@ class HomePage extends StatelessWidget {
         child: Text('Click the + button to add your AR photo.'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Material(
+                color: Colors.transparent,
+                child: Center(
+                  child: Wrap(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                  onPressed: () => Get.back(),
+                                  icon: Icon(Icons.close)),
+                            ),
+                            Text(
+                              'Choose an option',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 18),
+                            ),
+                            SizedBox(height: 5),
+                            TextButton(
+                                onPressed: () async {
+                                  try {
+                                    final pickedImage = await ImagePicker()
+                                        .pickImage(source: ImageSource.camera);
+                                    if (pickedImage != null) {
+                                      String imagePath = pickedImage.path;
+                                      controller.imageFile.value =
+                                          await pickedImage.readAsBytes();
+                                    }
+                                  } catch (e) {}
+                                },
+                                child: Text('Camera')),
+                            TextButton(onPressed: () {}, child: Text('Gallery'))
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
