@@ -39,6 +39,8 @@ dependencies:
   get:
   firebase_messaging:
   image_picker:
+  arcore_flutter_plugin:
+
 
 dev_dependencies:
   flutter_test:

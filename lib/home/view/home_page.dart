@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:augmented_reality/home/controller/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,9 +17,10 @@ class HomePage extends StatelessWidget {
         title: Text('Augmented Reality'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('Click the + button to add your AR photo.'),
-      ),
+      body: ArCoreView(onArCoreViewCreated: controller.onArCoreViewCreated),
+      // body: Center(
+      //   child: Text('Click the + button to add your AR photo.'),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -53,19 +55,13 @@ class HomePage extends StatelessWidget {
                             ),
                             SizedBox(height: 5),
                             TextButton(
-                                onPressed: () async {
-                                  try {
-                                    final pickedImage = await ImagePicker()
-                                        .pickImage(source: ImageSource.camera);
-                                    if (pickedImage != null) {
-                                      String imagePath = pickedImage.path;
-                                      controller.imageFile.value =
-                                          await pickedImage.readAsBytes();
-                                    }
-                                  } catch (e) {}
-                                },
+                                onPressed: () =>
+                                    controller.pickImage(fromCamera: true),
                                 child: Text('Camera')),
-                            TextButton(onPressed: () {}, child: Text('Gallery'))
+                            TextButton(
+                                onPressed: () =>
+                                    controller.pickImage(fromCamera: false),
+                                child: Text('Gallery'))
                           ],
                         ),
                       ),
